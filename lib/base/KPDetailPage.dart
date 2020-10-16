@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:FlutterAppTest/Widgets/MaterialAppTest.dart';
+import 'package:FlutterAppTest/Widgets/WidgetsBase.dart';
 import 'package:FlutterAppTest/model/KnowledgePoint.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +18,9 @@ class KPDetailPageState extends State<KPDetailPage> {
 
   final _studyList = <KnowledgePoint>[
     new KnowledgePoint( name: 'Container', sId: 100 ),
-    new KnowledgePoint(name: 'Row', sId: 101),
-    new KnowledgePoint(name: 'Column', sId: 102),
-    new KnowledgePoint(name: 'Image', sId: 103),
+    new KnowledgePoint(name: 'Row/Column', sId: 101),
+    new KnowledgePoint(name: 'MaterialApptest', sId: 102),
+    new KnowledgePoint(name: 'None', sId: 0),
   ];//datasource
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
@@ -55,12 +57,35 @@ class KPDetailPageState extends State<KPDetailPage> {
 
   ///知识下一级
   void _pushNext (KnowledgePoint s){
-    switch (s.sId){
-      case 100:
-        print(s.name);
-        break;
-      default:
-        print('该知识点尚未涉及');
+    if (s.sId > 0) {
+      Navigator.of(context).push(
+        new MaterialPageRoute(
+            builder:(context){
+              var page = null;
+
+              switch (s.sId){
+                case 100:
+                  page = new ContainerTest();
+                  break;
+                case 101:
+                  page = new RowColumnTest();
+                  break;
+                case 102:
+                  page = new MaterialApptest();
+                  break;
+              }
+
+              return new Scaffold(
+                appBar: new AppBar(
+                  title: Text(s.name),
+                ),
+                body: page,
+              );
+            }
+        ),
+      );
+    } else {
+      print('该知识点尚未涉及');
     }
   }
 
