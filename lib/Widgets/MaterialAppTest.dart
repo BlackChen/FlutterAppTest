@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class MaterialApptest extends StatelessWidget {
   @override
@@ -21,6 +20,8 @@ class MaterialApptest extends StatelessWidget {
 
 
 class FirstPage extends StatelessWidget {
+  FocusNode userFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,24 @@ class FirstPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/second');//2
               },
             ),
-            // TextFieldPage(),
+
+            TextField(
+              focusNode: userFocusNode,
+              onChanged: (text) {
+                print("输入改变时: " + text);
+              },
+            ),
+
+            RaisedButton(
+              child: Text('停止编辑'),
+              onPressed: () {
+                userFocusNode.unfocus();
+                print('清除输入框聚焦');
+              },
+            ),
+
+
+
           ],
         ),
 
@@ -60,6 +78,7 @@ class SecondPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             }),
+
       ),
     );
   }
