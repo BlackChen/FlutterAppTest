@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'AnimatedTest.dart';
 import 'ChipTest.dart';
 import 'ExpansionPanelTest.dart';
 import 'StepperTest.dart';
@@ -19,6 +20,8 @@ class MaterialApptest extends StatelessWidget {
         '/chip': (BuildContext context) => FilterChipDemo(),
         '/inputchip': (BuildContext context) => InputChipDemo(),
         '/step': (BuildContext context) => StepperPage(),
+        '/Animated': (BuildContext context) => AnimatedDemo(),
+        '/heroAnimated': (BuildContext context) =>  MyHomePage(),
       },
       initialRoute: '/first',
     );
@@ -92,9 +95,9 @@ class FirstPage extends StatelessWidget {
             RaisedButton(
               child: Text('跳转到第二页'),
               onPressed: () {
-                // Navigator.pushNamed(context, '/second');
+                Navigator.pushNamed(context, '/second');
 
-                createAlertDialog();
+                // createAlertDialog();//对话框
               },
             ),
 
@@ -183,13 +186,26 @@ class SecondPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/inputchip');
           }),
 
+          CupertinoButton(
+              child: Text('Animated'),
+              onPressed: (){
+                Navigator.pushNamed(context, '/Animated');
+              }
+          ),
+
+          CupertinoButton(
+              child: Text('heroAnimated'),
+              onPressed: (){
+                Navigator.pushNamed(context, '/heroAnimated');
+              }
+          ),
+
           RaisedButton(
               child: Text('StepperPage'),
               onPressed: (){
                 // '/inputchip'
                 Navigator.pushNamed(context, '/step');
-              }
-              ),
+              }),
 
           RaisedButton(
               child: Text('SnakBar'),
