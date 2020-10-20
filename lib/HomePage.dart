@@ -1,11 +1,13 @@
 import 'package:FlutterAppTest/ShopingList/ShopingList.dart';
 import 'package:FlutterAppTest/ShopingList/ShoppingListItem.dart';
 import 'package:FlutterAppTest/base/KPDetailPage.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'RandomWords/RandomWords.dart';
+import 'Widgets/CustomPaintTest.dart';
 import 'model/KnowledgePoint.dart';
 
 class FlutterMenu extends StatefulWidget {
@@ -16,7 +18,7 @@ class FlutterMenu extends StatefulWidget {
 class FlutterMenuState extends State<FlutterMenu> {
   final _studyList = <KnowledgePoint>[
     new KnowledgePoint( name: '基础组件', sId: 100 ),
-    new KnowledgePoint(name: 'jj', sId: 101),
+    new KnowledgePoint(name: 'CanvasAnimateWidget', sId: 101),
     new KnowledgePoint(name: 'kk', sId: 102),
     new KnowledgePoint(name: 'll', sId: 103),
   ];//datasource
@@ -26,10 +28,7 @@ class FlutterMenuState extends State<FlutterMenu> {
     return new ListView.builder(
         padding: const EdgeInsets.all(16),
 
-        itemBuilder: (context, i){
-          // 在每一列之前，添加一个1像素高的分隔线widget
-          if (i.isOdd) return new Divider();
-          final index = i ~/ 2;
+        itemBuilder: (context, index){
           if (index < _studyList.length)
             return _buildRow(_studyList[index]);
         }
@@ -37,15 +36,19 @@ class FlutterMenuState extends State<FlutterMenu> {
   }
 
   Widget _buildRow(KnowledgePoint pair){
-    return new ListTile(
-      title: new Text(
-        pair.name,
-        style: _biggerFont,
-      ),
-      onTap: (){
-        _pushNext(pair);
-      },
-
+    return Column(
+      children: [
+        ListTile(
+          title: new Text(
+            pair.name,
+            style: _biggerFont,
+          ),
+          onTap: (){
+            _pushNext(pair);
+          },
+        ),
+        Divider(),
+      ],
     );
   }
 
@@ -55,6 +58,17 @@ class FlutterMenuState extends State<FlutterMenu> {
       Navigator.of(context).push(
         new MaterialPageRoute(
             builder:(context){
+              if(s.sId == 101){
+                return new Scaffold(
+                  appBar: new AppBar(
+                    title: Text('画板'),
+                    actions: [
+                      IconButton(icon: Icon(Icons.qr_code), onPressed: _pushFrostedGlassDemo)
+                    ],
+                  ),
+                  body: CanvasAnimateWidget(),
+                );
+              }
               final page = new KPDetailPage();
               page.point = s;
               return new Scaffold(
@@ -99,7 +113,18 @@ class FlutterMenuState extends State<FlutterMenu> {
       ),
     );
   }
-
+  /// 毛玻璃效果
+  void _pushFrostedGlassDemo() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+          builder:(context){
+            return new Scaffold(
+              body: new FrostedGlassDemo(),
+            );
+          }
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     // final wordPair = new WordPair.random();
