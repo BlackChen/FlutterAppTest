@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import 'ShoppingListItem.dart';
 
 class ShoppingList extends StatefulWidget {
-  ShoppingList({Key key, this.products}) : super(key: key);
+  ShoppingList({Key key, products}) : super(key: key);
 
-  final List<Product> products;
+  final List<Product> products = [
+    new Product(name: 'Flower'),
+    new Product(name: 'Flour'),
+    new Product(name: 'Chocolate chips'),
+  ];
 
   @override
-  _ShoppingListState createState() => new _ShoppingListState();
+  createState() => new _ShoppingListState();
 }
 
 class _ShoppingListState extends State<ShoppingList> {
-  Set<Product> _shoppingCart = new Set<Product>();
+  List<Product> _shoppingCart = new List<Product>();
 
   void _handleCartChanged(Product product, bool inCart) {
     setState(() {
@@ -34,15 +38,26 @@ class _ShoppingListState extends State<ShoppingList> {
       appBar: new AppBar(
         title: new Text('Shopping List'),
       ),
-      body: new ListView(
-        padding: new EdgeInsets.symmetric(vertical: 8.0),
-        children: widget.products.map((Product product) {
+      // body: new ListView(
+      //   padding: new EdgeInsets.symmetric(vertical: 8.0),
+      //   children: widget.products.map((Product product) {
+      //     return new ShoppingListItem(
+      //       product: product,
+      //       inCart: _shoppingCart.contains(product),
+      //       onCartChanged: _handleCartChanged,
+      //     );
+      //   }).toList(),
+      // ),
+      body: new ListView.builder(
+        itemCount: _shoppingCart.length,
+        itemBuilder: (context, index) {
+          Product p =  _shoppingCart[index];
           return new ShoppingListItem(
-            product: product,
-            inCart: _shoppingCart.contains(product),
+            product: p,
+            inCart: _shoppingCart.contains(p),
             onCartChanged: _handleCartChanged,
           );
-        }).toList(),
+        },
       ),
     );
   }

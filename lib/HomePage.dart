@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'RandomWords/RandomWords.dart';
+import 'Widgets/AsyncTest.dart';
 import 'Widgets/CustomPaintTest.dart';
 import 'model/KnowledgePoint.dart';
 
@@ -19,8 +20,8 @@ class FlutterMenuState extends State<FlutterMenu> {
   final _studyList = <KnowledgePoint>[
     new KnowledgePoint( name: '基础组件', sId: 100 ),
     new KnowledgePoint(name: 'CanvasAnimateWidget', sId: 101),
-    new KnowledgePoint(name: 'kk', sId: 102),
-    new KnowledgePoint(name: 'll', sId: 103),
+    new KnowledgePoint(name: 'Async', sId: 102),
+    new KnowledgePoint(name: 'ScrollView', sId: 103),
   ];//datasource
   final _biggerFont = const TextStyle(fontSize: 18.0);//字体大小
 
@@ -58,22 +59,36 @@ class FlutterMenuState extends State<FlutterMenu> {
       Navigator.of(context).push(
         new MaterialPageRoute(
             builder:(context){
-              if(s.sId == 101){
-                return new Scaffold(
-                  appBar: new AppBar(
-                    title: Text('画板'),
-                    actions: [
+              switch (s.sId){
+                case 101:
+                  return new Scaffold(
+                    appBar: new AppBar(
+                      title: Text('画板'),
+                      actions: [
                       IconButton(icon: Icon(Icons.qr_code), onPressed: _pushFrostedGlassDemo)
-                    ],
-                  ),
-                  body: CanvasAnimateWidget(),
+                      ],
+                    ),
+                    body: CanvasAnimateWidget(),
                 );
+                case 102:
+                  return new Scaffold(
+                    appBar: new AppBar(
+                      title: Text('异步'),
+
+                    ),
+                    body: AsyncTest(),
+                 );
+                case 103:
+                  return new Scaffold(
+                    body: new ShoppingList()
+                  );
+                default:
+                  final page = new KPDetailPage();
+                  page.point = s;
+                  return new Scaffold(
+                    body: page,
+                  );
               }
-              final page = new KPDetailPage();
-              page.point = s;
-              return new Scaffold(
-                body: page,
-              );
             }
         ),
       );
@@ -88,13 +103,10 @@ class FlutterMenuState extends State<FlutterMenu> {
       new MaterialPageRoute(
           builder:(context){
             return new Scaffold(
-              body: new ShoppingList(
-                products: <Product>[
-                  new Product(name: 'Flower'),
-                  new Product(name: 'Flour'),
-                  new Product(name: 'Chocolate chips'),
-                ],
+              appBar: new AppBar(
+                title: Text('待定'),
               ),
+              body: new Text('未定义')
             );
           }
       ),
