@@ -20,7 +20,7 @@ class KPDetailPageState extends State<KPDetailPage> {
     new KnowledgePoint( name: 'Container', sId: 100 ),
     new KnowledgePoint(name: 'Row/Column', sId: 101),
     new KnowledgePoint(name: 'MaterialApptest', sId: 102),
-    new KnowledgePoint(name: 'None', sId: 0),
+    new KnowledgePoint(name: '触摸水波效果', sId: 103),
   ];//datasource
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
@@ -29,15 +29,30 @@ class KPDetailPageState extends State<KPDetailPage> {
   }//字体大小
 
   Widget _buildDetailPage() {
-    return new ListView.builder(
-        padding: const EdgeInsets.all(16),
-
-        itemBuilder: (context, i){
+    return new ListView.separated(
+        itemCount: _studyList.length,
+        separatorBuilder: (context, index){
+          return new Divider();
+        },
+        itemBuilder: (context, index){
           // 在每一列之前，添加一个1像素高的分隔线widget
-          if (i.isOdd) return new Divider();
-          final index = i ~/ 2;
-          if (index < _studyList.length)
+          if (index < _studyList.length-1)
             return _buildRow(_studyList[index]);
+          if (index == 3)
+            return new InkWell(
+              // When the user taps the button, show a snackbar
+              onTap: () {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: new Text('点击效果'),
+                ));
+              },
+              child: new Container(
+                padding: new EdgeInsets.all(18.0),
+                child: new Text('触摸水波',semanticsLabel: 'tips',
+                ),
+              ),
+            );
+          return Container();
         }
     );
   }

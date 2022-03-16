@@ -21,7 +21,8 @@ class FlutterMenuState extends State<FlutterMenu> {
     new KnowledgePoint( name: '基础组件', sId: 100 ),
     new KnowledgePoint(name: 'CanvasAnimateWidget', sId: 101),
     new KnowledgePoint(name: 'Async', sId: 102),
-    new KnowledgePoint(name: 'ScrollView', sId: 103),
+    new KnowledgePoint(name: 'ShoppingList', sId: 103),
+    new KnowledgePoint(name: ';;;;;;;', sId: 103),
   ];//datasource
   final _biggerFont = const TextStyle(fontSize: 18.0);//字体大小
 
@@ -32,6 +33,7 @@ class FlutterMenuState extends State<FlutterMenu> {
         itemBuilder: (context, index){
           if (index < _studyList.length)
             return _buildRow(_studyList[index]);
+          return Text('');
         }
     );
   }

@@ -40,7 +40,7 @@ dependencies:
 #  flutter_picker: '^1.0.0' #选择器
 #  fluwx: '^0.3.0' #微信支付、分享、登录
 #  tobias: '^ 0.0.6' #支付宝
-#  http: '^0.11.3+16' #网络请求
+  http: '^0.11.3+16' #网络请求
 #  image_picker: '^0.4.5' #图片选择（相册或拍照）
 #  flutter_swiper: '^1.0.2' #轮播图
 #  path_provider: '^0.4.1' #获取系统文件

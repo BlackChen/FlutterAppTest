@@ -36,7 +36,6 @@ class _AsyncTestState extends State<AsyncTest> {
     String showResult = '';
 
     Future<CommonModel> fetchPost() async {
-      var http = new HttpClient();
       // ignore: close_sinks
       var httpClient = new HttpClient();
       var uri = new Uri.http(

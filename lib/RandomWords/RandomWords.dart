@@ -32,7 +32,7 @@ class RandomWordsState extends State<RandomWords> {
           _suggestions.addAll(generateWordPairs().take(10));
         }
         final item = _suggestions[i];
-        return Dismissible(
+        return Dismissible(//滑动关闭组件
           background: Container(
             color: Colors.red,
           ),
